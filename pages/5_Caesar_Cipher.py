@@ -40,12 +40,12 @@ def encrypt_decrypt(text, shift_keys, ifdecrypt):
 text = st.text_input("Enter Text:")
 shift_keys = st.text_input("Enter Shift Keys:")
 
-x = encrypt_decrypt(text, shift_keys, ifdecrypt=False)
 
 if st.button("Submit"):
     if not shift_keys:
         st.error("Invalid Input!")
     else:
+        x = encrypt_decrypt(text, shift_keys, ifdecrypt=False)
         st.snow()
 
         st.write("Text:", text)

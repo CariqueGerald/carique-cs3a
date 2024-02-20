@@ -3,7 +3,7 @@ import streamlit as st
 st.header("XOR Cipher")
 
 def xor_encrypt(plaintext, key):
-    """Encrypts plaintext using XOR cipher with the given key, st.writeing bits involved."""
+    """Encrypts plaintext using XOR cipher with the given key."""
     ciphertext = bytearray()
     for i in range(len(plaintext)):
         plaintext_byte = plaintext[i]
@@ -17,14 +17,10 @@ def xor_encrypt(plaintext, key):
         st.write("--------------------")
         ciphertext.append(xor_result)
 
-    encrypted = xor_encrypt(plaintext, key)
-    st.write("Ciphertext: ", encrypted.decode())
     return ciphertext
 
 def xor_decrypt(ciphertext, key):
     """Decrypts ciphertext using XOR cipher with the given key."""
-    decrypted = xor_decrypt(encrypted, key)
-    st.write("Decrypted: ", decrypted.decode())
     return xor_encrypt(ciphertext, key)  # XOR decryption is the same as encryption
 
 # Example usage:

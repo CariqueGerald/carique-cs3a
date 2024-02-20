@@ -21,8 +21,6 @@ def encrypt_decrypt(text, shift_keys, ifdecrypt):
     for i in range(len(text)):
         key += (shiftkeys[i % len(shiftkeys)]).split()
     
-    st.write("Encryption/Decryption Process:")
-    st.write("--------------------")
     for i in range(len(text)):
         if ifdecrypt:
             result.append(chr((ord(letters[i]) - int(key[i]) - 32) % 94 + 32))
@@ -33,8 +31,6 @@ def encrypt_decrypt(text, shift_keys, ifdecrypt):
     
     outcome = "".join(result)
     
-    st.write("Final Output:")
-    st.write("--------------------")
     for i in range(len(text)):
         st.write(f"{i} {result[i]} {key[i]} {letters[i]}")
     st.write("----------")

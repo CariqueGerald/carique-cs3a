@@ -16,11 +16,15 @@ def xor_encrypt(plaintext, key):
         st.write(f"XOR result:     {format(xor_result, '08b')} = {chr(xor_result)}")
         st.write("--------------------")
         ciphertext.append(xor_result)
-        
+
+    encrypted = xor_encrypt(plaintext, key)
+    st.write("Ciphertext: ", encrypted.decode())
     return ciphertext
 
 def xor_decrypt(ciphertext, key):
     """Decrypts ciphertext using XOR cipher with the given key."""
+    decrypted = xor_decrypt(encrypted, key)
+    st.write("Decrypted: ", decrypted.decode())
     return xor_encrypt(ciphertext, key)  # XOR decryption is the same as encryption
 
 # Example usage:
@@ -31,11 +35,7 @@ if st.button("Submit"):
     if not key:
         st.error("Invalid Input!")
     else:
-        encrypted = xor_encrypt(plaintext, key)
-        st.write("Ciphertext: ", encrypted.decode())
-        decrypted = xor_decrypt(encrypted, key)
-        st.write("Decrypted: ", decrypted.decode())
-
+        st.balloons()
         if len(plaintext.decode()) == len(key.decode()):
             st.write("Plaintext should not be equal to the key")
         elif len(plaintext.decode()) <= len(key.decode()):
@@ -45,5 +45,3 @@ if st.button("Submit"):
             st.write("Ciphertext: ", encrypted.decode())
             decrypted = xor_decrypt(encrypted, key)
             st.write("Decrypted: ", decrypted.decode())
-
-st.balloons()

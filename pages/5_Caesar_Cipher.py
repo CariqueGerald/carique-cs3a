@@ -22,11 +22,11 @@ def encrypt_decrypt(text, shift_keys, ifdecrypt):
         key += (shiftkeys[i % len(shiftkeys)]).split()
     
     for i in range(len(text)):
+        st.write(f"{i} {letters[i]} {key[i]} {result[i]}")
         if ifdecrypt:
             result.append(chr((ord(letters[i]) - int(key[i]) - 32) % 94 + 32))
         else:
             result.append(chr((ord(letters[i]) + int(key[i]) - 32 + 94) % 94 + 32))
-        st.write(f"{i} {letters[i]} {key[i]} {result[i]}")
 
     st.write("----------")
     
@@ -39,8 +39,8 @@ def encrypt_decrypt(text, shift_keys, ifdecrypt):
     return outcome
 
 # Example usage
-text = st.text_input("Enter Text:")
-shift_keys = st.text_input("Enter Shift Keys:")
+text = st.text_input()
+shift_keys = st.text_input()
 
 if st.button("Submit"):
     if not shift_keys:

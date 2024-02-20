@@ -34,14 +34,14 @@ def encrypt_decrypt(text, shift_keys, ifdecrypt):
         st.write(f"{i} {result[i]} {key[i]} {letters[i]}")
     st.write("----------")
     
+    x = encrypt_decrypt(text, shift_keys, ifdecrypt=False)
+    decrypted_text = encrypt_decrypt(x, shift_keys, ifdecrypt=True)
     return outcome
 
 # Example usage
 text = st.text_input("Enter Text:")
 shift_keys = st.text_input("Enter Shift Keys:")
 
-x = encrypt_decrypt(text, shift_keys, ifdecrypt=False)
-decrypted_text = encrypt_decrypt(x, shift_keys, ifdecrypt=True)
 
 if st.button("Submit"):
     if not shift_keys:

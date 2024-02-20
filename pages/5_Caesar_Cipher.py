@@ -39,8 +39,8 @@ def encrypt_decrypt(text, shift_keys, ifdecrypt):
     return outcome
 
 # Example usage
-text = st.text_input()
-shift_keys = st.text_input()
+text = st.text_input("")
+shift_keys = st.text_input("")
 
 if st.button("Submit"):
     if not shift_keys:

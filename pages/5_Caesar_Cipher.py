@@ -26,13 +26,14 @@ def encrypt_decrypt(text, shift_keys, ifdecrypt):
             result.append(chr((ord(letters[i]) - int(key[i]) - 32) % 94 + 32))
         else:
             result.append(chr((ord(letters[i]) + int(key[i]) - 32 + 94) % 94 + 32))
-        st.write(i, letters[i], key[i], result[i])
+        st.write(f"{i} {letters[i]} {key[i]} {result[i]}")
+
     st.write("----------")
     
     outcome = "".join(result)
     
     for i in range(len(text)):
-        st.write(i, result[i], key[i], letters[i])
+        st.write(f"{i} {result[i]} {key[i]} {letters[i]}")
     st.write("----------")
     
     return outcome

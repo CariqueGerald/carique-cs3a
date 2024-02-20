@@ -31,7 +31,7 @@ if st.button("Submit"):
     if not key:
         st.error("Invalid Input!")
     else:
-        st.balloons()
+        st.snow()
         if len(plaintext.decode()) == len(key.decode()):
             st.write("Plaintext should not be equal to the key")
         elif len(plaintext.decode()) <= len(key.decode()):

@@ -12,6 +12,7 @@ def encrypt_decrypt(text, shift_keys, ifdecrypt):
     Returns:
         A string containing the encrypted text if encrypt and plain text if decrypt
     """
+    
     result = []
     key = []
     letters = list(text)
@@ -21,17 +22,14 @@ def encrypt_decrypt(text, shift_keys, ifdecrypt):
         key += (shiftkeys[i % len(shiftkeys)]).split()
     
     for i in range(len(text)):
-        if ifdecrypt:
-            result.append(chr((ord(letters[i]) - int(key[i]) - 32) % 94 + 32))
-        else:
-            result.append(chr((ord(letters[i]) + int(key[i]) - 32 + 94) % 94 + 32))
-        st.write(f"{i} {letters[i]} {key[i]} {result[i]}")
+        if ifdecrypt: result += chr((ord(letters[i]) - int(key[i]) - 32) % 94 + 32) 
+        else: result += chr((ord(letters[i]) + int(key[i]) - 32 + 94) % 94 + 32)
+        st.write(i, letters[i], key[i], result[i])
     st.write("----------")
     
-    outcome = "".join(result)
-    
     for i in range(len(text)):
-        st.write(f"{i} {result[i]} {key[i]} {letters[i]}")
+        st.write(i, result[i], key[i], letters[i])
+        outcome = "".join(result)
     st.write("----------")
     
     return outcome
@@ -40,16 +38,13 @@ def encrypt_decrypt(text, shift_keys, ifdecrypt):
 text = st.text_input("Enter Text:")
 shift_keys = st.text_input("Enter Shift Keys:")
 
-
 if st.button("Submit"):
     if not shift_keys:
         st.error("Invalid Input!")
     else:
-        x = encrypt_decrypt(text, shift_keys, ifdecrypt=False)
-        decrypted_text = encrypt_decrypt(text, shift_keys, ifdecrypt=True)
-        st.snow()
+        x = encrypt_decrypt(text, shift_keys, ifdecrypt = False)
 
         st.write("Text:", text)
         st.write("Shift keys:", shift_keys)
         st.write("Cipher:", x)
-        st.write("Decrypted text:", decrypted_text)
+        st.write("Decrypted text:", text)

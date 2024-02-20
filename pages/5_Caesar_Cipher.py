@@ -45,7 +45,7 @@ if st.button("Submit"):
     if not shift_keys:
         st.error("Invalid Input!")
     else:
-        x = encrypt_decrypt(text, shift_keys, ifdecrypt=False)
+        x = encrypt_decrypt(text, shift_keys, ifdecrypt=True)
         decrypted_text = encrypt_decrypt(text, shift_keys, ifdecrypt=False)
         st.snow()
 

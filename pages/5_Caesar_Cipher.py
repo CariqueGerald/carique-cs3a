@@ -12,7 +12,6 @@ def encrypt_decrypt(text, shift_keys, ifdecrypt):
     Returns:
         A string containing the encrypted text if encrypt and plain text if decrypt
     """
-    
     result = []
     key = []
     letters = list(text)
@@ -41,13 +40,14 @@ def encrypt_decrypt(text, shift_keys, ifdecrypt):
 text = st.text_input("Enter Text:")
 shift_keys = st.text_input("Enter Shift Keys:")
 
+x = encrypt_decrypt(text, shift_keys, ifdecrypt=False)
+decrypted_text = encrypt_decrypt(x, shift_keys, ifdecrypt=True)
+
 if st.button("Submit"):
     if not shift_keys:
         st.error("Invalid Input!")
     else:
         st.snow()
-        x = encrypt_decrypt(text, shift_keys, ifdecrypt=False)
-        decrypted_text = encrypt_decrypt(x, shift_keys, ifdecrypt=True)
 
         st.write("Text:", text)
         st.write("Shift keys:", shift_keys)

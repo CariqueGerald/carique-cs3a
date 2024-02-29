@@ -4,8 +4,6 @@ st.header("Primitive Root")
 
 def prime(q, g):
     if not q.isnumeric() or not g.isnumeric():
-        st.snow()
-        st.write("Please enter valid numeric values.")
         return
     
     q = int(q)  # Convert q to an integer

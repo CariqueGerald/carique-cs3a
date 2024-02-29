@@ -57,10 +57,8 @@ def prime(q, g):
 q = st.text_input("Prime number:")
 g = st.text_input("Primitive:")
 
-prime(q, g)
-
 if st.button("Submit"):
     if not g:
         st.error("Invalid Input!")
     else:
-        st.snow()
+        prime(q, g)

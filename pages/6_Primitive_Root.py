@@ -60,5 +60,7 @@ g = st.text_input("Primitive:")
 if st.button("Submit"):
     if not g:
         st.error("Invalid Input!")
+    elif not q:
+        st.error("Invalid Input!")
     else:
         prime(q, g)

@@ -45,13 +45,15 @@ def prime(q, g):
                     l.clear()
                     st.write("")
                     break
-                
+        
         try:
             g = int(g)  # Convert g to an integer
         except ValueError:
             st.snow()
             st.write("Please enter a valid primitive number.")
             return
+        
+        print(f"Debug: q={q}, g={g}, primitive={primitive}, isp={isp}")  # Add a print statement for debugging
         
         if g in isp:
             st.snow()

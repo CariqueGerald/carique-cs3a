@@ -47,7 +47,7 @@ def prime(q, g):
             st.write(f"{g} is NOT primitive root of {q} - List of Primitive roots: {isp}")
     return
     
-q = st.text_input(int("Prime number:"))
-g = st.text_input(int("Primitive:"))
+q = st.text_input("Prime number:")
+g = st.text_input("Primitive:")
 
 prime(q, g)

@@ -3,12 +3,13 @@ import streamlit as st
 st.header("Primitive Root")
 
 def prime(q, g):
-    try:
-        q = int(q)  # Convert q to an integer
-    except ValueError:
+    if not q.isnumeric() or not g.isnumeric():
         st.snow()
-        st.write("Please enter a valid prime number.")
+        st.write("Please enter valid numeric values.")
         return
+    
+    q = int(q)  # Convert q to an integer
+    g = int(g)  # Convert g to an integer
     
     x = 0
     
@@ -45,15 +46,6 @@ def prime(q, g):
                     l.clear()
                     st.write("")
                     break
-        
-        try:
-            g = int(g)  # Convert g to an integer
-        except ValueError:
-            st.snow()
-            st.write("Please enter a valid primitive number.")
-            return
-        
-        print(f"Debug: q={q}, g={g}, primitive={primitive}, isp={isp}")  # Add a print statement for debugging
         
         if g in isp:
             st.snow()

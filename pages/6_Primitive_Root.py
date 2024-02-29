@@ -3,7 +3,12 @@ import streamlit as st
 st.header("Primitive Root")
 
 def prime(q, g):
-    q = int(q)  # Convert q to an integer
+    try:
+        q = int(q)  # Convert q to an integer
+    except ValueError:
+        st.snow()
+        st.write("Please enter a valid prime number.")
+        return
     
     x = 0
     
@@ -32,7 +37,7 @@ def prime(q, g):
                         st.write(f"{n}^{m} mod {q} = {z}", end=", ")
                         
                     if m == (q-1):
-                        st.write(f"{n}^{m} mod {q} = {z} ==> {n} is primitive root of {q}", end=", " )
+                        st.write(f"{n}^{m} mod {q} = {z} ==> {n} is a primitive root of {q}", end=", " )
                         primitive = True
                         isp.append(n)
                         
@@ -41,12 +46,20 @@ def prime(q, g):
                     st.write("")
                     break
                 
-        if int(g) in isp:  # Convert g to an integer for comparison
+        try:
+            g = int(g)  # Convert g to an integer
+        except ValueError:
             st.snow()
-            st.write(f"{g} is primitive root: {primitive} {isp}")
+            st.write("Please enter a valid primitive number.")
+            return
+        
+        if g in isp:
+            st.snow()
+            st.write(f"{g} is a primitive root: {primitive} {isp}")
         else:
             st.snow()
             st.write(f"{g} is NOT a primitive root of {q} - List of Primitive roots: {isp}")
+
     return
     
 q = st.text_input("Prime number:")

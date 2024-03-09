@@ -48,14 +48,14 @@ def xor_encrypt(plaintext, key, block_size):
     padded_plaintext = pad(plaintext, block_size)
     
     # Iterate through the plaintext in blocks of size block_size
-    print("Encrypted blocks")
+    st.write("Encrypted blocks")
     for l, i in enumerate(range(0, len(padded_plaintext), block_size)):
         # Extract a block of plaintext
         plaintext_block = padded_plaintext[i:i+block_size]
         # Encrypt the plaintext block using XOR with the key
         encrypted_block = xor_encrypt_block(plaintext_block, key)
-        print(f"Plain block[{l}]: {plaintext_block.hex()} : {plaintext_block}")
-        print(f"Cipher block[{l}]: {encrypted_block.hex()} : {encrypted_block}")
+        st.write(f"Plain block[{l}]: {plaintext_block.hex()} : {plaintext_block}")
+        st.write(f"Cipher block[{l}]: {encrypted_block.hex()} : {encrypted_block}")
         
         # Append the encrypted block to the encrypted data
         encrypted_data += encrypted_block
@@ -68,14 +68,14 @@ def xor_decrypt(ciphertext, key, block_size):
     decrypted_data = b''
     
     # Iterate through the ciphertext in blocks of size block_size
-    print("Decrypted blocks")
+    st.write("Decrypted blocks")
     for l, i in enumerate(range(0, len(ciphertext), block_size)):
         # Extract the current block of ciphertext
         ciphertext_block = ciphertext[i:i+block_size]
         
         # Decrypt the current block using xor_decrypt_block function
         decrypted_block = xor_decrypt_block(ciphertext_block, key)
-        print(f"block[{l}]: {decrypted_block.hex()}: {decrypted_block}")
+        st.write(f"block[{l}]: {decrypted_block.hex()}: {decrypted_block}")
         
         # Append the decrypted block to the decrypted data
         decrypted_data += decrypted_block
@@ -95,26 +95,32 @@ if __name__ == "__main__":
     key = bytes(input("").encode())
 
     # Define the block size for encryption (adjust according to your needs)
-    while True:
-        block_size = int(input(""))
-        if block_size in allowed_block_sizes:
-            break
+
+    if st.button("Submit"):
+        if not key:
+            st.error("Invalid Input!")
         else:
-            print("Block size must be one of 8, 16, 32, 64, or 128 bytes")
+            st.snow()
+            while True:
+                block_size = int(input(""))
+                if block_size in allowed_block_sizes:
+                    break
+                else:
+                    st.write("Block size must be one of 8, 16, 32, 64, or 128 bytes")
+                    
+            key = pad(key, block_size)   # Pad the key
+
+            # Encryption
+            ciphertext = xor_encrypt(plaintext, key, block_size)
+
+            # Decryption
+            decrypted_data = xor_decrypt(ciphertext, key, block_size)
             
-    key = pad(key, block_size)   # Pad the key
+            st.write("\nOriginal plaintext:", plaintext)
+            st.write("Key byte      :", key)
+            st.write("Key hex       :", key.hex())
+            st.write("Encrypted data:", ciphertext.hex())  # st.write encrypted data in hexadecimal format
+            st.write("Decrypted data:", decrypted_data.hex())
+            st.write("Decrypted data:", decrypted_data)
 
-    # Encryption
-    ciphertext = xor_encrypt(plaintext, key, block_size)
-
-    # Decryption
-    decrypted_data = xor_decrypt(ciphertext, key, block_size)
-    
-    print("\nOriginal plaintext:", plaintext)
-    print("Key byte      :", key)
-    print("Key hex       :", key.hex())
-    print("Encrypted data:", ciphertext.hex())  # Print encrypted data in hexadecimal format
-    print("Decrypted data:", decrypted_data.hex())
-    print("Decrypted data:", decrypted_data)
-
-# print(b'Hello Bob, this '.hex())
+# st.write(b'Hello Bob, this '.hex())

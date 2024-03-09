@@ -91,8 +91,8 @@ if __name__ == "__main__":
     # Define the plaintext and encryption key
     allowed_block_sizes = [8, 16, 32, 64, 128]
     
-    plaintext = bytes(input("").encode())
-    key = bytes(input("").encode())
+    plaintext = bytes(st.text_input("Plain Text: ").encode())
+    key = bytes(st.text_input("Key: ").encode())
 
     # Define the block size for encryption (adjust according to your needs)
 

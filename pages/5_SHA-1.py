@@ -25,9 +25,15 @@ def hash_text(text):
     results.append(f"{hash_text} {text}")
     return results
 
+# Input text from user
 text = st.text_input("Enter text to hash:")
 
-if text:
-    results = hash_text(text)
-    for result in results:
-        st.write(result)
+# Button to submit the input
+if st.button("Submit"):
+    if not text:
+        st.error("Invalid Input!")
+    else:
+        st.snow()
+        results = hash_text(text)
+        for result in results:
+            st.write(result)

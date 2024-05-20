@@ -1,7 +1,7 @@
 import hashlib
 import streamlit as st
 
-st.header("XOR Cipher")
+st.header("SHA-1")
 
 def hash_text(text):
     space_hash = '5C1CE938EC4B836703C845A1D8DB57348758F283'  # Hash value of space

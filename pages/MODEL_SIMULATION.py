@@ -35,11 +35,11 @@ def generate_synthetic_data(classes, features, num_samples):
 st.sidebar.title("Data Parameters")
 
 # Step 1: Enter class names
-class_names_input = st.sidebar.text_input("Enter class names separated by commas:", "banana, apple, carrot, orange")
+class_names_input = st.sidebar.text_input("Enter class names separated by commas:", "banana, apple, grapes")
 class_names = [name.strip() for name in class_names_input.split(",")]
 
 # Step 2: Enter features (including numbers)
-features_input = st.sidebar.text_input("Enter features separated by commas:", "yellow, red, sweet, sour, 7, 5, 2")
+features_input = st.sidebar.text_input("Enter features separated by commas:", "yellow, red, purple")
 features = [feature.strip() for feature in features_input.split(",")]
 
 # Step 3: User input for assigning features to classes

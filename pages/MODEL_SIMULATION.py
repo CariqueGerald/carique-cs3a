@@ -4,6 +4,13 @@ import numpy as np
 from sklearn.datasets import make_classification
 import random
 
+# Main content of the app
+st.title("Synthetic Data Generation")
+
+st.write(
+    "This app allows you to generate synthetic data based on the user's original input of classes and features."
+)
+
 # Function to generate synthetic data based on user input
 def generate_synthetic_data(classes, features, num_samples):
     # Create a dictionary for original data
@@ -56,17 +63,10 @@ if generate_button:
         original_data, synthetic_data = generate_synthetic_data(class_names, features, num_samples)
 
         # Display the original data and synthetic data
-        st.subheader("Original Data (Dataset Format)")
+        st.subheader("Original Data")
         st.dataframe(original_data)  # Display original data as DataFrame
         
         st.subheader(f"Synthetic Data (Generated {num_samples} samples)")
         st.dataframe(synthetic_data)  # Display synthetic data as DataFrame
     else:
         st.sidebar.error("Please enter class names and features properly.")
-
-# Main content of the app
-st.title("Synthetic Data Generation")
-
-st.write(
-    "This app allows you to generate synthetic data based on the user's original input of classes and features."
-)

@@ -7,10 +7,15 @@ import random
 # Function to generate synthetic data based on user input
 def generate_synthetic_data(classes, features, num_samples):
     # Create a dictionary for original data
-    original_data = {class_name: random.sample(features, len(features)) for class_name in classes}
+    original_data_dict = {class_name: random.sample(features, len(features)) for class_name in classes}
     
-    # Now we will generate synthetic data. 
-    # For simplicity, we will use make_classification to simulate feature data
+    # Convert original data dictionary to DataFrame
+    original_data = pd.DataFrame(
+        [(class_name, feature) for class_name, feature_list in original_data_dict.items() for feature in feature_list],
+        columns=["Class", "Feature"]
+    )
+    
+    # Generate synthetic data using make_classification
     X, y = make_classification(n_samples=num_samples, n_features=len(features), random_state=42)
     
     # Create DataFrame for synthetic data
@@ -51,11 +56,11 @@ if generate_button:
         original_data, synthetic_data = generate_synthetic_data(class_names, features, num_samples)
 
         # Display the original data and synthetic data
-        st.subheader("Original Data")
-        st.write(original_data)
+        st.subheader("Original Data (Dataset Format)")
+        st.dataframe(original_data)  # Display original data as DataFrame
         
         st.subheader(f"Synthetic Data (Generated {num_samples} samples)")
-        st.write(synthetic_data)
+        st.dataframe(synthetic_data)  # Display synthetic data as DataFrame
     else:
         st.sidebar.error("Please enter class names and features properly.")
 
@@ -65,4 +70,3 @@ st.title("Synthetic Data Generation")
 st.write(
     "This app allows you to generate synthetic data based on the user's original input of classes and features."
 )
-

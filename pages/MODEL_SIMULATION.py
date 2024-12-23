@@ -63,6 +63,6 @@ if generate_button:
 st.title("Synthetic Data Generation")
 
 st.write(
-    "This app allows you to generate synthetic data based on the user's original input of class names and features."
+    "This app allows you to generate synthetic data based on the user's original input of classes and features."
 )
 

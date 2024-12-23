@@ -20,7 +20,7 @@ def generate_synthetic_data(classes, features, num_samples):
     return original_data, synthetic_data
 
 # Streamlit Sidebar Inputs
-st.sidebar.title("Input Settings")
+st.sidebar.title("Data Parameters")
 
 # Step 1: Enter class names
 class_names_input = st.sidebar.text_input("Enter class names separated by commas:", "banana, apple, carrot, orange")
@@ -31,12 +31,12 @@ features_input = st.sidebar.text_input("Enter features separated by commas:", "y
 features = [feature.strip() for feature in features_input.split(",")]
 
 # Step 3: User input for assigning features to classes
-st.sidebar.subheader("Assign Features to Classes")
+st.sidebar.subheader("Class Specific Parameters")
 
 # Collect user feature selection for each class
 class_features = {}
 for class_name in class_names:
-    selected_features = st.sidebar.multiselect(f"Select features for {class_name}", options=features)
+    selected_features = st.sidebar.multiselect(f"Specific features for {class_name}", options=features)
     class_features[class_name] = selected_features
 
 # Step 4: User input for generating synthetic data (number of samples)
@@ -57,12 +57,12 @@ if generate_button:
         st.subheader(f"Synthetic Data (Generated {num_samples} samples)")
         st.write(synthetic_data)
     else:
-        st.sidebar.error("Please enter class names, features, and assign them properly.")
+        st.sidebar.error("Please enter class names and features properly.")
 
 # Main content of the app
-st.title("Synthetic Data Generation Based on User Input")
+st.title("Synthetic Data Generation")
 
 st.write(
-    "This app allows you to generate synthetic data based on your original input of class names and features."
+    "This app allows you to generate synthetic data based on the user's original input of class names and features."
 )
 

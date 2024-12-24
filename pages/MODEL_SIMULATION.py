@@ -1,72 +1,62 @@
 import streamlit as st
-import pandas as pd
 import numpy as np
-from sklearn.datasets import make_classification
-import random
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report, confusion_matrix
+import plotly.express as px
 
-# Main content of the app
-st.title("Synthetic Data Generation")
+def generate_synthetic_data(features, classes, total_samples):
+    samples_per_class = total_samples // len(classes)
+    data = []
+    for cls in classes:
+        class_data = np.random.normal(loc=0, scale=1, size=(samples_per_class, len(features)))
+        labels = np.full((samples_per_class, 1), cls)
+        data.append(np.hstack((class_data, labels)))
+    return np.vstack(data), features + ["Target"]
 
-st.write(
-    "This app allows you to generate synthetic data based on the user's original input of classes and features."
-)
+def main():
+    st.title("Simple Modeling and Simulation App")
 
-# Function to generate synthetic data based on user input
-def generate_synthetic_data(classes, features, num_samples):
-    # Create a dictionary for original data
-    original_data_dict = {class_name: random.sample(features, len(features)) for class_name in classes}
-    
-    # Convert original data dictionary to DataFrame
-    original_data = pd.DataFrame(
-        [(class_name, feature) for class_name, feature_list in original_data_dict.items() for feature in feature_list],
-        columns=["Class", "Feature"]
-    )
-    
-    # Generate synthetic data using make_classification
-    X, y = make_classification(n_samples=num_samples, n_features=len(features), random_state=42)
-    
-    # Create DataFrame for synthetic data
-    synthetic_data = pd.DataFrame(X, columns=features)
-    synthetic_data['Class'] = np.random.choice(classes, num_samples)
-    
-    return original_data, synthetic_data
+    # Sidebar settings
+    st.sidebar.header("Synthetic Data Settings")
+    features = st.sidebar.text_input("Enter feature names (comma-separated):", "Feature1, Feature2, Feature3").split(",")
+    classes = st.sidebar.text_input("Enter class names (comma-separated):", "Class1, Class2").split(",")
+    total_samples = st.sidebar.slider("Number of samples", min_value=1000, max_value=10000, step=500)
+    train_percent = st.sidebar.slider("Train-Test Split (%)", min_value=10, max_value=90, step=5)
 
-# Streamlit Sidebar Inputs
-st.sidebar.title("Data Parameters")
+    if st.sidebar.button("Generate and Train"):
+        data, columns = generate_synthetic_data(features, classes, total_samples)
+        df = pd.DataFrame(data, columns=columns)
 
-# Step 1: Enter class names
-class_names_input = st.sidebar.text_input("Enter class names separated by commas:", "banana, apple, grapes")
-class_names = [name.strip() for name in class_names_input.split(",")]
+        X = df[features].astype(float)
+        y = df["Target"]
 
-# Step 2: Enter features (including numbers)
-features_input = st.sidebar.text_input("Enter features separated by commas:", "yellow, red, purple")
-features = [feature.strip() for feature in features_input.split(",")]
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=(100 - train_percent) / 100, random_state=42)
+        scaler = StandardScaler()
+        X_train = scaler.fit_transform(X_train)
+        X_test = scaler.transform(X_test)
 
-# Step 3: User input for assigning features to classes
-st.sidebar.subheader("Class Specific Parameters")
+        model = RandomForestClassifier(random_state=42)
+        model.fit(X_train, y_train)
+        y_pred = model.predict(X_test)
 
-# Collect user feature selection for each class
-class_features = {}
-for class_name in class_names:
-    selected_features = st.sidebar.multiselect(f"Specific features for {class_name}", options=features)
-    class_features[class_name] = selected_features
+        # Display results
+        st.subheader("Dataset Preview")
+        st.dataframe(df.head())
 
-# Step 4: User input for generating synthetic data (number of samples)
-num_samples = st.sidebar.slider("Select number of synthetic data samples", 1000, 10000, 5000)
+        st.subheader("Evaluation Metrics")
+        st.text("Classification Report:")
+        st.text(classification_report(y_test, y_pred))
 
-# Step 5: Button to generate synthetic data
-generate_button = st.sidebar.button("Generate Synthetic Data")
+        st.subheader("Confusion Matrix")
+        cm = confusion_matrix(y_test, y_pred)
+        st.write(cm)
 
-if generate_button:
-    if class_names and features and class_features:
-        # Generate original data and synthetic data
-        original_data, synthetic_data = generate_synthetic_data(class_names, features, num_samples)
+        st.subheader("2D Scatter Plot")
+        fig = px.scatter(df, x=features[0], y=features[1], color="Target", title="Synthetic Data Visualization")
+        st.plotly_chart(fig)
 
-        # Display the original data and synthetic data
-        st.subheader("Original Data")
-        st.dataframe(original_data)  # Display original data as DataFrame
-        
-        st.subheader(f"Synthetic Data (Generated {num_samples} samples)")
-        st.dataframe(synthetic_data)  # Display synthetic data as DataFrame
-    else:
-        st.sidebar.error("Please enter class names and features properly.")
+if __name__ == "__main__":
+    main()

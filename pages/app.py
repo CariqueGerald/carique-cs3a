@@ -202,7 +202,7 @@ import pandas as pd
 
 def sidebar_section():
     """Handles the sidebar UI and input collection."""
-    st.header("📂Data Source")
+    st.header("Data Source")
     data_source = st.radio("Choose data source:", ["Generate Synthetic Data", "Upload Dataset"])
 
     features, classes = [], []

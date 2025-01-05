@@ -221,7 +221,7 @@ def sidebar_section():
 
         col1, col2 = st.columns(2)
         with col1:
-            total_sample_size = st.slider("Number of samples", min_value=500, max_value=50000, step=500)
+            total_sample_size = st.slider("Number of samples", min_value=500, max_value=50000, step=5000)
         with col2:
             train_test_split_percent = st.slider("Train-Test Split (%)", min_value=10, max_value=50, step=5)
 

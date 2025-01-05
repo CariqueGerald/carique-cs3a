@@ -214,7 +214,7 @@ def sidebar_section():
         st.write("Define parameters for synthetic data generation below.")
 
         features = parse_input(st.text_input("Enter feature names (comma-separated)", "length (mm), width (mm), density (g/cm³)"))
-        classes = parse_input(st.text_input("Enter class names (comma-separated)", "Ampalaya, Banana, Cabbage"))
+        classes = parse_input(st.text_input("Enter class names (comma-separated)", "Ampalaya, Banana, Cabbage, Eggplant"))
 
         initialize_class_dicts(features, classes)
         configure_class_settings(features, classes)

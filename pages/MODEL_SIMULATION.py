@@ -127,7 +127,7 @@ class Visualizer:
         cm = confusion_matrix(y_test, y_pred)
         
         fig, ax = plt.subplots(figsize=(6, 4))
-        sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', 
+        sns.heatmap(cm, annot=True, fmt='d', cmap='Reds', 
                    xticklabels=class_names, yticklabels=class_names)
         ax.set_title(f"{model_name}\nAccuracy: {accuracy:.2%}")
         ax.set_xlabel("Predicted")
@@ -220,7 +220,7 @@ class StreamlitApp:
             self._save_and_offer_downloads(df, self.model_trainer.models, self.model_trainer.results)
             
     def _display_data_info(self, df, train_split, total_samples):
-        st.subheader("📊 Dataset Overview")
+        st.subheader("Dataset Overview")
         st.dataframe(df.head())
         
         train_samples = int(total_samples * (1 - train_split/100))
@@ -232,7 +232,7 @@ class StreamlitApp:
         cols[2].metric("Testing Samples", test_samples)
     
     def _display_visualizations(self, df, features):
-        st.subheader("📈 Feature Visualization")
+        st.subheader("Feature Visualization")
         viz_type = st.radio("Select Visualization", ["2D", "3D"])
         
         if viz_type == "2D":
@@ -248,7 +248,7 @@ class StreamlitApp:
             st.plotly_chart(fig)
     
     def _display_model_results(self, best_model, X_test, y_test, classes):
-        st.subheader("🎯 Model Performance")
+        st.subheader("Model Performance")
         
         # Display results table
         results_df = pd.DataFrame(self.model_trainer.results).T

@@ -578,7 +578,7 @@ def plot_confusion_matrix(model, X_test, y_test, model_name, class_names, model_
     cm = confusion_matrix(y_test, y_pred)
 
     fig, ax = plt.subplots(figsize=(6, 4))
-    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', ax=ax,
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Reds', ax=ax,
                 xticklabels=class_names, yticklabels=class_names)
     ax.set_title(f"{model_name} \n  Accuracy: {model_accuracy:.2%}")
     ax.set_xlabel("Predicted")

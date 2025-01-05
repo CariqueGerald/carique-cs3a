@@ -419,7 +419,7 @@ def display_metrics_chart(metric_df, metrics):
         metric_df,
         x=metric_df.index,  
         y=metrics,         
-        title="📝 Performance Metrics Comparison",
+        title="Performance Metrics Comparison",
         labels={"value": "Score", "variable": "Metric", "index": "Model"},
         barmode='group',     
     )
@@ -503,7 +503,7 @@ def save_models(models, results, X_train, y_train, saved_models_dir="saved_model
         st.session_state["saved_models"] = saved_models_dir
         
 def display_download_button(saved_models_dir, model_accuracy_df):
-    selected_model = st.selectbox("📥 Select Model to Download", options=model_accuracy_df["Model"])
+    selected_model = st.selectbox("Select Model to Download", options=model_accuracy_df["Model"])
 
     if selected_model:
         model_file_path = os.path.join(saved_models_dir, f"{selected_model}.pkl")

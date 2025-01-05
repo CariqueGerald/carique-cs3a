@@ -801,8 +801,7 @@ def main():
 
             
                 display_learning_curves(models, results, X_train, y_train)
-                
-                display_confusion_matrices(models, results, X_test, y_test) 
+            
 
                     
     elif data_source == "Upload Dataset":

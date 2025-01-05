@@ -585,37 +585,6 @@ def plot_confusion_matrix(model, X_test, y_test, model_name, class_names, model_
     ax.set_ylabel("Actual")
     
     return fig
-
-# Function to display confusion matrices
-def display_confusion_matrices(models, model_results, X_test, y_test):
-    st.subheader("Confusion Matrix for Each Model")
-
-    n_models = len(models)
-    rows = (n_models + 2) // 4
-    cols_per_row = 4
-    model_names = list(models.keys())
-
-    class_names = sorted(y_test.unique())
-
-    for row in range(rows):
-        cols = st.columns(cols_per_row)
-        for col_idx in range(cols_per_row):
-            model_idx = row * cols_per_row + col_idx
-            if model_idx < n_models:
-                model_name = model_names[model_idx]
-                model = models[model_name]
-
-                # Fetch accuracy from model_results
-                model_accuracy = model_results.get(model_name, {}).get("Accuracy", "N/A")
-
-                with cols[col_idx]:
-                    if model_results.get(model_name, {}).get("Status") == "Success":
-                        fig = plot_confusion_matrix(
-                            model, X_test, y_test, model_name, class_names, model_accuracy
-                        )
-                        st.pyplot(fig)
-                    else:
-                        st.warning(f"{model_name} did not train successfully.")
     
     
 def main():

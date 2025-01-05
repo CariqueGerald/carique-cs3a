@@ -766,7 +766,7 @@ def main():
 
                 # Streamlit UI for selecting a model to download
                 selected_model = st.selectbox(
-                        "📥 Select Model to Download", 
+                        "Select Model to Download", 
                         options=model_accuracy_df["Model"]
                         )
 
